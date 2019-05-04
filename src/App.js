@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList';
@@ -20,16 +19,21 @@ constructor(props){
   super(props)
   this.state = {
     activeRoom : ''
+    };
   }
-}
+
 setActiveRoom(room){
   this.setState({activeRoom: room})
 }
+  
   render() {
     return (
       <div className="App">
-        <RoomList database={firebase} activeRoom={this.state.activeRoom} setActiveRoom={(room) => this.setActiveRoom(room)}/>
-        <MessageList database={firebase} activeRoom={this.state.activeRoom} />
+        <RoomList database={firebase} 
+         setActiveRoom={(room) => this.setActiveRoom.bind(this)}/>
+        
+        <MessageList database={firebase} 
+         activeRoom={this.state.activeRoom} />
       </div>
     );
   }
