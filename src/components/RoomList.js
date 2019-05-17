@@ -30,6 +30,10 @@ class RoomList extends Component {
         this.setState({ newRoomName: ''});
     }
 
+    setActiveRoom(room) {
+        this.props.setActiveRoom(room);
+    }
+
  
         render () {
           return (

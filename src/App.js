@@ -26,15 +26,22 @@ setActiveRoom(room){
   this.setState({activeRoom: room})
 }
   
-  render() {
+render() {
+    const showMessages = this.state.activeRoom;
+
     return (
-      <div className="App">
-        <RoomList database={firebase} 
-         setActiveRoom={(room) => this.setActiveRoom.bind(this)}/>
-        
-        <MessageList database={firebase} 
-         activeRoom={this.state.activeRoom} />
+      <div className = "App">
+  <div className="roomNav">
+        <RoomList database={firebase} activeRoom={this.setActiveRoom.bind(this)} />
       </div>
+      <main>
+        {this.state.activeRoom.name}
+        <div id="messageArea">
+          {showMessages ? (<MessageList database={firebase} activeRoom={this.state.activeRoom}/>) : (null) }
+        </div>
+      </main>
+      </div>
+
     );
   }
 }
