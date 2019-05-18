@@ -3,14 +3,13 @@ import React, { Component } from 'react';
 class MessageList extends Component {
   constructor(props) {
     super(props);
-    this.state = { messages: [], username:"" ,content: "", sentAt: "", roomId: "" };
+    this.state = { messages: [], username:"" ,content: "", sentAt: "", roomId: "" }
     this.messagesRef = this.props.database.database().ref('Messages');
   }
 
   componentDidMount() {
     this.messagesRef.on('child_added', snapshot => {
-      const message = snapshot.val();
-      message.key = snapshot.key;
+      const message = { value : snapshot.val(), key : snapshot.key}; 
       this.setState({messages: this.state.messages.concat( message ) });
     });
   }
@@ -27,8 +26,6 @@ render(){
                 {message.value.username} : {message.value.content}
                 </li> })
            }
-           {console.log(this.props.activeRoom)}
-           {console.log(this.state.messages)}
         </div>
         )
     }
