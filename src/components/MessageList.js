@@ -25,7 +25,7 @@ class MessageList extends Component {
 handleChange(e) {
         this.setState({ content: e.target.value })
     }
-    
+
 createMessage(e) {
         this.messagesRef.push ({
             content: this.state.content,
@@ -49,7 +49,7 @@ render(){
            }
 
            <form className='new-message' onSubmit={ (e) => { e.preventDefault(); this.createMessage(this.setState({ content: e.target.value })) } } >
-                <input type='text'  onChange={(e) => this.handleChange(e)} />
+                <input type='text'  value={this.state.content} onChange={(e) => this.handleChange(e)} />
                 <input type='submit' value='Submit Message' />
             </form>
 
