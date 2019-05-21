@@ -3,17 +3,29 @@ import React, { Component } from 'react';
 class MessageList extends Component {
   constructor(props) {
     super(props);
-    this.state = { messages: [], username:"" ,content: "", sentAt: "", roomId: "" }
+    this.state = { 
+      messages: [], 
+      username:" ",
+      content: " ",
+      sentAt: " ",
+      roomId: " " 
+    };
     this.messagesRef = this.props.firebase.database().ref('Messages');
   }
 
   componentDidMount() {
     this.messagesRef.on('child_added', snapshot => {
-      const message = { value : snapshot.val(), key : snapshot.key}; 
+      const message = { value : snapshot.val(), 
+        key : snapshot.key}; 
       this.setState({messages: this.state.messages.concat( message ) });
     });
   }
 
+
+handleChange(e) {
+        this.setState({ content: e.target.value })
+    }
+    
 createMessage(e) {
         this.messagesRef.push ({
             content: this.state.content,
@@ -22,10 +34,6 @@ createMessage(e) {
             username: this.props.user ? this.props.user.displayName : "Guest"
         });
         this.setState({ content: ''});
-    }
-
-handleChange(e) {
-        this.setState({ content: e.target.value })
     }
 
 
