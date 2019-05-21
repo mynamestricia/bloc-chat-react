@@ -14,6 +14,19 @@ class MessageList extends Component {
     });
   }
 
+createMessage(e) {
+        this.messagesRef.push ({
+            content: this.state.content,
+            sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
+            roomId: this.props.activeRoom.key,
+            username: this.props.user ? this.props.user.displayName : "Guest"
+        });
+        this.setState({ content: ''});
+    }
+
+handleChange(e) {
+        this.setState({ content: e.target.value })
+    }
 
 
 render(){
@@ -26,6 +39,12 @@ render(){
                 {message.value.username} : {message.value.content}
                 </li> })
            }
+
+           <form className='new-message' onSubmit={ (e) => { e.preventDefault(); this.createMessage(this.setState({ content: e.target.value })) } } >
+                <input type='text'  onChange={(e) => this.handleChange(e)} />
+                <input type='submit' value='Submit Message' />
+            </form>
+
         </div>
         )
     }
